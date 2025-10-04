@@ -24,4 +24,5 @@ export const handleError = (err, req, res, next) => {
   if(err.code === 11000){ 
     const message = `Duplicate ${Object.keys(err.keyValue)} entered`;
     err = new ErrorHandler(message, 400);
+  }
 };
