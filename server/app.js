@@ -1,8 +1,9 @@
- import express from "express";
- import { config } from "dotenv";
- import cookie from "cookie-parser";
- import cors from "cors";
+
+import express from "express";
+import { config } from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
+import { connection } from "./database/dbConnection.js";
 
 export const app = express();
 config({ path: "./config.env"});
@@ -14,8 +15,9 @@ app.use(
     credentials : true,
   })
 );
-
 //middleware in use
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended : true}));
+
+connection();
