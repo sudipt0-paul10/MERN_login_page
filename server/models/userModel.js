@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date, 
     default: Date.now,
-  }
+  },
 });
 
 //pre is a mongoose middleware that runs before saving the document, e.g. hashing password before saving so that you don't have to hash manually every time 
@@ -35,5 +35,23 @@ userSchema.pre("save", async function(next){
 userSchema.methods.comparePassword = async function(enteredPassword){
   return await bcrypt.compare(enteredPassword,this.password);
 };
+
+userSchema.methods.generateVerificationCode = function () {
+  function generateRandomFiveDigitNumber() {
+    const firstDigit = Math.floor(Math.random() * 9) + 1;
+    const remainingDigits = Math.floor(Math.random() * 10000)
+      .toString()
+      .padStart(4, 0);
+
+    return parseInt(firstDigit + remainingDigits);
+  }
+  const verificationCode = generateRandomFiveDigitNumber();
+  this.verificationCode = verificationCode;
+  this.verificationCodeExpire = Date.now() + 10 * 60 * 1000;
+
+  return verificationCode;
+};
+
+
 
 export const User = mongoose.model("User",userSchema);
