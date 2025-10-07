@@ -33,5 +33,5 @@ export const errorMiddleware = (err, req, res, next) => {
     message: err.message,
   });
 };
-
-export default ErrorHandler;
+export default errorMiddleware;
+export { ErrorHandler };
