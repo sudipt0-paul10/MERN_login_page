@@ -9,7 +9,7 @@ export const removeUnverifedccounts = ()=>{
     //the stars represent minute-hour-day of month-month-day of week
     const thirtyMinutesAgo = new Date(Date.now() - 30*60*1000);
     await User.deleteMany({
-      accountVerified: false;
+      accountVerified: false,
       createdA: {$lt: thirtyMinutesAgo},
     });
   });
