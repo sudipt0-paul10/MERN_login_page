@@ -15,7 +15,7 @@ export const register = catchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("All fields are required.", 400));
     }
     function validatePhoneNumber(phone) {
-      const phoneRegex = /^\+923\d{9}$/;
+      const phoneRegex = /^\+91\d{10}$/;
       return phoneRegex.test(phone);
     }
 
